@@ -19,21 +19,21 @@ I realize several projects in Machine Learning / Deep Learning based on various 
 
 - 🎙 [Voice Recognition](https://github.com/Jennifer974/my-projects/tree/master/final-project-vivadata-03-2020) : Recognize celebrity speakers from any speech.
 
-*source : University of Oxford :* [VoxCeleb Speaker Recognition Challenge (VoxSRC)](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/competition.html)
+*Source : University of Oxford :* [VoxCeleb Speaker Recognition Challenge (VoxSRC)](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/competition.html)
 
 
 ### Anomaly Detection
 
 - 💳 Credit card fraud detection : identify fraudulent credit card transactions
 
-*source : Kaggle Challenge* [Credit card fraud detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/)
+*Source : Kaggle Challenge* [Credit card fraud detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/)
 
 
 ### NLP
 
 - 💬 Quora : detect toxic content to improve online conversations
 
-*source : Kaggle Challenge :* [Quora insincere questions](https://www.kaggle.com/c/quora-insincere-questions-classification)
+*Source : Kaggle Challenge :* [Quora insincere questions](https://www.kaggle.com/c/quora-insincere-questions-classification)
 
 
 ## Authors
@@ -42,7 +42,7 @@ I realize several projects in Machine Learning / Deep Learning based on various 
 
 For more informations, you can contact me :
 
-[LinkeDin](https://www.linkedin.com/in/jennifer-lenclume-a93728115/?locale=en_US)
+LinkeDIn : [LinkeDIn profile](https://www.linkedin.com/in/jennifer-lenclume-a93728115/?locale=en_US)
 
 Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 
