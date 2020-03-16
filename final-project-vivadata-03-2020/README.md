@@ -6,7 +6,12 @@
 
 Photo by <a href="https://burst.shopify.com/@lightleaksin?utm_campaign=photo_credit&amp;utm_content=Browse+Free+HD+Images+of+Retro+Radio+Microphone+Against+Purple+Background&amp;utm_medium=referral&amp;utm_source=credit">Samantha Hurley</a> from <a href="https://burst.shopify.com/vintage?utm_campaign=photo_credit&amp;utm_content=Browse+Free+HD+Images+of+Retro+Radio+Microphone+Against+Purple+Background&amp;utm_medium=referral&amp;utm_source=credit">Burst</a>
 
-One Paragraph of project description goes here
+Recognize celebrity speakers from any speech :
+[Project Plan](https://docs.google.com/presentation/d/16wNe2B3FZuiwzTYpEq4Us9K1lSrWAeuP5wIO_sBCzRY/edit?usp=sharing)
+
+I choose this project because I am fascinated by audio synthesis and I decide to study voice recognition part to begin.
+   
+*Source : VoxCeleb Speaker Recognition Challenge (VoxSRC - University of Oxford) :* [VoxCeleb Speaker Recognition Challenge (VoxSRC)](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/competition.html)
 
 ## Getting Started
 
@@ -14,29 +19,29 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+- I read documentation on voiceprint to can identify each celebrity voice and audio signal processing :
 
-```
-Give examples
-```
+1.  [*From Natural to Artificial Intelligence - Algorithms and Applications* : Some Commonly Used Speech Feature Extraction Algorithms (book extract)](https://www.intechopen.com/books/from-natural-to-artificial-intelligence-algorithms-and-applications/some-commonly-used-speech-feature-extraction-algorithms)
+
+2. [Deep Learning course : keywords voice recognition](https://deeplylearning.fr/cours-pratiques-deep-learning/reconnaissance-vocale-de-mots-cles/)
+
+3. [Voice Gender Identification project](https://maelfabien.github.io/machinelearning/Speech11/#)
+
+4. [Voice Classification with Neural Networks project](https://towardsdatascience.com/voice-classification-with-neural-networks-ff90f94358ec)
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+- I crate a virtual environment for my project to can export it later and avoid versioning issue. I install different packages with `requirements.txt` : 
 
 ```
-Give the example
+pip install -r requirements.txt
 ```
+- I install LibROSA library, a python package for music and audio analysis : [LibROSA - librosa 0.7.2 documentation](https://librosa.github.io/librosa/)
 
-And repeat
-
-```
-until finished
-```
+- I install pyAudio library to play and record audio : [PyAudio - documentation](https://people.csail.mit.edu/hubert/pyaudio/docs/)
 
 End with an example of getting some data out of the system or using it for a little demo
+
 
 ## Running the tests
 
@@ -78,17 +83,23 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Jennifer LENCLUME** - *Data Scientist* - 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+For more informations, you can contact me :
+
+LinkedIn : [LinkedIn profile](https://www.linkedin.com/in/jennifer-lenclume-a93728115/?locale=en_US)
+
+Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a> 
+
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
+
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Machine Learning
+* Deep Learning
+* Audio Treatment
 

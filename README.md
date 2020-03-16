@@ -10,9 +10,9 @@ Photo by <a href="https://burst.shopify.com/@lightleaksin?utm_campaign=photo_cre
 
 ## Context
 
-Graduated from the ECAM EPMI Engineering School in Information Systems Management in 2018, I currently specialize in Data Science through the VIVADATA Full Stack Data Science bootcamp because I like to give meaning to data and see how they impact reality.
+Graduated from the ECAM EPMI Engineering School in Information Systems Management in 2018, I specialized in Data Science through the VIVADATA Full Stack Data Science bootcamp because I like to give meaning to data and see how they impact reality.
 
-I realize several projects in Machine Learning / Deep Learning based on various challenges (Kaggle, University of Oxford...) that you will find here.
+I realized several projects in Machine Learning / Deep Learning based on various challenges (Kaggle, University of Oxford...) that you will find here.
  
 
 ### Speech Detection
@@ -26,7 +26,7 @@ I realize several projects in Machine Learning / Deep Learning based on various 
 
 - 💳 Credit card fraud detection : identify fraudulent credit card transactions
 
-*Source : Kaggle Challenge* [Credit card fraud detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/)
+*Source : Kaggle Challenge :* [Credit card fraud detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/)
 
 
 ### NLP
@@ -36,15 +36,17 @@ I realize several projects in Machine Learning / Deep Learning based on various 
 *Source : Kaggle Challenge :* [Quora insincere questions](https://www.kaggle.com/c/quora-insincere-questions-classification)
 
 
+
 ## Authors
 
 * **Jennifer LENCLUME** - *Data Scientist* - 
 
 For more informations, you can contact me :
 
-LinkeDIn : [LinkeDIn profile](https://www.linkedin.com/in/jennifer-lenclume-a93728115/?locale=en_US)
+LinkedIn : [LinkedIn profile](https://www.linkedin.com/in/jennifer-lenclume-a93728115/?locale=en_US)
 
 Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
+
 
 
 ## Acknowledgments
