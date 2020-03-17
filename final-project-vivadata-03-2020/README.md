@@ -57,11 +57,11 @@ All important files used for my project saved here [Final Project data](https://
 - I am limited to use the VoxCeleb1 dataset because is lower than which give by the VoxSRC Challenge and my CPU will support it.
 - It contains 148 642 audio files (format : wav - duration : 5s in average) extracted from YouTube videos of celebrity interviews : 1251 celebrity speakers :
 
-<img src='graph/Celebrity-speakers-gender-in-VoxCeleb1-dataset.jpg'>
+<img src='graph/Celebrity-speakers-gender-in-VoxCeleb1-dataset.jpg' align='middle'>
 
 The repartition in celebrity speakers between men and women is equal.
 
-<img src='graph/Celebrity-speakers-nationality-repartion.jpg'>
+<img src='graph/Celebrity-speakers-nationality-repartion.jpg' align='middle'>
 
 I constat that American and Englishman are majority so I keep them for my project.
 
