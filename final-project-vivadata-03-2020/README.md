@@ -2,9 +2,12 @@
 
 # CelebVoice, Celebrity Speech Recognition
 
-<img src='retro-radio-microphone-against-purple-background.jpg'>
+<img src='../images-library/retro-radio-microphone-against-purple-background.jpg'>
 
 Photo by <a href="https://burst.shopify.com/@lightleaksin?utm_campaign=photo_credit&amp;utm_content=Browse+Free+HD+Images+of+Retro+Radio+Microphone+Against+Purple+Background&amp;utm_medium=referral&amp;utm_source=credit">Samantha Hurley</a> from <a href="https://burst.shopify.com/vintage?utm_campaign=photo_credit&amp;utm_content=Browse+Free+HD+Images+of+Retro+Radio+Microphone+Against+Purple+Background&amp;utm_medium=referral&amp;utm_source=credit">Burst</a>
+
+
+## Objectives 🚀
 
 Recognize celebrity speakers from any speech :
 [Project Plan](https://docs.google.com/presentation/d/16wNe2B3FZuiwzTYpEq4Us9K1lSrWAeuP5wIO_sBCzRY/edit?usp=sharing)
@@ -13,9 +16,12 @@ I choose this project because I am fascinated by audio synthesis and I decide to
    
 *Source : VoxCeleb Speaker Recognition Challenge (VoxSRC - University of Oxford) :* [VoxCeleb Speaker Recognition Challenge (VoxSRC)](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/competition.html)
 
+
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+This project is under development, you can see a part of my work in `Final-project.ipynb` jupyter notebook.
+
 
 ### Prerequisites
 
@@ -28,6 +34,7 @@ These instructions will get you a copy of the project up and running on your loc
 3. [Voice Gender Identification project](https://maelfabien.github.io/machinelearning/Speech11/#)
 
 4. [Voice Classification with Neural Networks project](https://towardsdatascience.com/voice-classification-with-neural-networks-ff90f94358ec)
+
 
 ### Installing
 
@@ -43,43 +50,26 @@ pip install -r requirements.txt
 End with an example of getting some data out of the system or using it for a little demo
 
 
-## Running the tests
+### Dataset
 
-Explain how to run the automated tests for this system
+All important files used for my project saved here [Final Project data](https://drive.google.com/drive/u/0/folders/1qvcWw5RyMjSaWA3ft_THVjGptLy_09Rt)
 
-### Break down into end to end tests
+📥 I download the VoxCeleb1 dataset on : [VoxCeleb : A large scale audio-visual dataset of human speech](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/index.html#portfolio) :
 
-Explain what these tests test and why
+- I am limited to use the VoxCeleb1 dataset because is lower than which give by the VoxSRC Challenge and my CPU will support it.
+- It contains 148 642 audio files (format : wav - duration : 5s in average) extracted from YouTube videos of celebrity interviews : 1251 celebrity speakers :
 
-```
-Give an example
-```
+<img src='../graph/Celebrity-speakers-gender-in-VoxCeleb1-dataset.jpg'>
 
-### And coding style tests
+The repartition in celebrity speakers between men and women is equal.
 
-Explain what these tests test and why
+<img src='../graph/Celebrity-speakers-nationality-repartion.jpg'>
 
-```
-Give an example
-```
+I constat that American and Englishman are majority so I keep them for my project.
 
-## Deployment
+- My data is labelised : Using Supervised Machine Learning Model
+- My targets are discrete values : I am in Classification case and I use Deep Learning model
 
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
@@ -90,11 +80,6 @@ For more informations, you can contact me :
 LinkedIn : [LinkedIn profile](https://www.linkedin.com/in/jennifer-lenclume-a93728115/?locale=en_US)
 
 Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a> 
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 
 ## Acknowledgments

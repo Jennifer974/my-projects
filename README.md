@@ -4,7 +4,7 @@ Hello,
 
 Welcome to my Data Science Project page 🚀
 
-<img src='business-person-desk-flatlay.jpg'>
+<img src='images-library/business-person-desk-flatlay.jpg'>
 Photo by <a href="https://burst.shopify.com/@lightleaksin?utm_campaign=photo_credit&amp;utm_content=Picture+of+Business+Person+Desk+Flatlay+%E2%80%94+Free+Stock+Photo&amp;utm_medium=referral&amp;utm_source=credit">Samantha Hurley</a> from <a href="https://burst.shopify.com/computer?utm_campaign=photo_credit&amp;utm_content=Picture+of+Business+Person+Desk+Flatlay+%E2%80%94+Free+Stock+Photo&amp;utm_medium=referral&amp;utm_source=credit">Burst</a>
 
 
