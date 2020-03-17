@@ -1,7 +1,3 @@
-#Images
-business-person-desk-flatlay.jpg                         #Homepage
-retro-radio-microphone-against-purple-background.jpg     #Final project vivadata
-
 ##Final project Vivadata : Celeb Voice, speaker recognition
 #Virtual env
 venv/
@@ -10,5 +6,4 @@ venv/
 final-project-data/
 mfcc_images/
 
-#Jupyter notebook back-up
-final-project-vivadata-03-2020/.ipynb_checkpoints/
+final-project-vivadata-03-2020/.ipynb_checkpoints/Final-Project-checkpoint.ipynb

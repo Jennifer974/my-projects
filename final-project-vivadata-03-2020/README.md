@@ -20,7 +20,7 @@ I choose this project because I am fascinated by audio synthesis and I decide to
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
-This project is under development, you can see a part of my work in `Final-project.ipynb` jupyter notebook.
+This project is under development, you can see a part of my work in [Final-project.ipynb](https://github.com/Jennifer974/my-projects/blob/master/final-project-vivadata-03-2020/Final-Project.ipynb) jupyter notebook.
 
 
 ### Prerequisites
@@ -47,8 +47,6 @@ pip install -r requirements.txt
 
 - I install pyAudio library to play and record audio : [PyAudio - documentation](https://people.csail.mit.edu/hubert/pyaudio/docs/)
 
-End with an example of getting some data out of the system or using it for a little demo
-
 
 ### Dataset
 
@@ -59,11 +57,11 @@ All important files used for my project saved here [Final Project data](https://
 - I am limited to use the VoxCeleb1 dataset because is lower than which give by the VoxSRC Challenge and my CPU will support it.
 - It contains 148 642 audio files (format : wav - duration : 5s in average) extracted from YouTube videos of celebrity interviews : 1251 celebrity speakers :
 
-<img src='../graph/Celebrity-speakers-gender-in-VoxCeleb1-dataset.jpg'>
+<img src='graph/Celebrity-speakers-gender-in-VoxCeleb1-dataset.jpg'>
 
 The repartition in celebrity speakers between men and women is equal.
 
-<img src='../graph/Celebrity-speakers-nationality-repartion.jpg'>
+<img src='graph/Celebrity-speakers-nationality-repartion.jpg'>
 
 I constat that American and Englishman are majority so I keep them for my project.
 
