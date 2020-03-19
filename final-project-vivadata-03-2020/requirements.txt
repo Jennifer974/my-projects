@@ -7,3 +7,4 @@ Librosa==0.7.2
 Matplotlib==3.1.1
 Seaborn==0.10.0
 Pyaudio==0.2.11
+tensorflow==2.1.0
