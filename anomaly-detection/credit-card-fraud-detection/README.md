@@ -101,7 +101,8 @@ Credit card dataset contains continue values but my target (`Class`) is discrete
 
 Some relevant informations are :
 - No null values : 
-```creditcard.isna().sum()
+```
+creditcard.isna().sum()
 ```
 
 - 1081 duplicates :
@@ -113,7 +114,9 @@ creditcard.drop_duplicates(inplace=True)
 - `Amount` mean = 88€
 - `Amount` max = 25 691€
 - `Time` max = 172 792s (i.e. 48h)
-```creditcard.describe()
+
+```
+creditcard.describe()
 ```
 
 
