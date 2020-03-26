@@ -89,7 +89,7 @@ from sklearn.metrics import roc_curve
 I load credit card dataset in python :
 ```
 #Define dataset path :
-filepath = os.path.join('..', '..', '..', '..', '..', 'data', 'creditcard.csv')
+filepath = os.path.join('data', 'creditcard.csv')
 
 #Load csv file with pandas dataframe
 creditcard = pd.read_csv(filepath)
@@ -395,13 +395,13 @@ y_pred_rf, y_pred_proba_rf = get_random_forest_classifier(n_estimators=100, max_
 
 `accuracy_score = 99.96%`
 
-Prediction for `n_estimators=100, max_depth=None` :
+2. Prediction for `n_estimators=100, max_depth=None` :
 
 <img src='result/credit-card-fraud-detection-rf-depth-none.png'>
 
 `accuracy_score = 99.96%`
 
-Prediction for `n_estimators=50, max_depth=None` :
+3. Prediction for `n_estimators=50, max_depth=None` :
 
 <img src='result/credit-card-fraud-detection-rf-est-50.png'>
 
@@ -413,8 +413,15 @@ I plot ROC Curve to choose the best model :
 
 <img src='graph/credit-card-fraud-roc-curve-rf.jpg'>
 
-I validate Logistic Regression model for `n_estimators = 100, max_depth = None` because the ROC score is better.
+I validate Random Forest model for `n_estimators = 100, max_depth = None` because the ROC score is better.
 
+##### Conclusion
+
+I plot ROC Curve for Supervised Machine Learning models and I validate Random Forest model for `n_estimators = 100, max_depth = None` because the ROC score is better.
+
+<img src='graph/credit-card-fraud-roc-supervisedML.jpg'>
+
+<img src='result/credit-card-fraud-detection-rf-depth-none.png'>
 
 ## Authors
 
