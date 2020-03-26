@@ -101,7 +101,9 @@ Credit card dataset contains continue values but my target (`Class`) is discrete
 
 Some relevant informations are :
 - No null values : 
-```creditcard.isna().sum()```
+```creditcard.isna().sum()
+```
+
 - 1081 duplicates :
 ```
 creditcard.duplicated().sum()
@@ -111,7 +113,8 @@ creditcard.drop_duplicates(inplace=True)
 - `Amount` mean = 88€
 - `Amount` max = 25 691€
 - `Time` max = 172 792s (i.e. 48h)
-```creditcard.describe()```
+```creditcard.describe()
+```
 
 
 ### 1.2 Data Analysis
@@ -221,6 +224,49 @@ X_train, y_train = oversampling.fit_resample(X_train, y_train)
 #### 2.1.3 Modeling
 
 Logistic Regression and Random Forest are models (from scikit-learn) I used to predict fraudulent transactions.
+
+I build this function to draw prediction later :
+```
+def graph_prediction(X, y_true, y_pred, model):
+    '''This function draw true distribution and predicted distribution transactions for V2 and V1
+    
+    Parameters
+    ------------
+    X : array of float
+        data to draw
+    y_true: array of int
+        contains Class transactions
+    y_pred: array of int
+        contains predictions for fraudulent of non-fraudlent transactions
+   
+    Returns
+    ------------
+    Predictions graph
+    '''
+    fig = plt.figure(figsize=(14, 6))
+
+    fig.add_subplot(121)
+    #Plot True distribution V2=f(V1)
+    plt.title('True distribution for credit card fraud detection : V2=f(V1)', fontsize=14)
+    plt.scatter(X[:, 1], X[:, 2], c=y_true)
+    plt.xlabel('V1')
+    plt.ylabel('V2')
+
+    fig.add_subplot(122)
+    #Plot Predicted distribution V2=f(V1)
+    plt.title('Predicted distribution for credit card fraud detection V2=f(V1)', fontsize=14)
+    plt.scatter(X[:, 1], X[:, 2], c=y_pred)
+    plt.xlabel('V1')
+    plt.ylabel('V2')
+    
+    #Save the graph with plt.savefig
+    filepath_prediction = os.path.join('graph', f'credit-card-fraud-prediction-{model}.jpg')
+    plt.savefig(filepath_prediction,                                                     #Image path
+            format='jpg',                                                                #Image format to save
+            bbox_inches='tight')  
+    
+    plt.show()
+```
 
 ##### Logistic Regression
 
@@ -343,6 +389,8 @@ plt.show()
 
 I validate Logistic Regression model for `C = 0.01` because it has a **best accuracy_score : 97.26%**.
 
+<img src='graph/credit-card-fraud-prediction-lr.jpg'>
+
 ##### Random Forest Classifier
 
 I define Random Forest Classifier function to change hyperparameter :
@@ -415,6 +463,8 @@ I plot ROC Curve to choose the best model :
 
 I validate Random Forest model for `n_estimators = 100, max_depth = None` because the ROC score is better.
 
+<img src='graph/credit-card-fraud-prediction-rf.jpg'>
+
 ##### Conclusion
 
 I plot ROC Curve for Supervised Machine Learning models and I validate Random Forest model for `n_estimators = 100, max_depth = None` because the ROC score is better.
@@ -422,6 +472,7 @@ I plot ROC Curve for Supervised Machine Learning models and I validate Random Fo
 <img src='graph/credit-card-fraud-roc-supervisedML.jpg'>
 
 <img src='result/credit-card-fraud-detection-rf-depth-none.png'>
+
 
 ## Authors
 
@@ -437,5 +488,4 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 ## Acknowledgments
 
 * Machine Learning
-* Deep Learning
 * Anomaly Detection
