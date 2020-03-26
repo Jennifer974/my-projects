@@ -34,7 +34,9 @@ pip install -r requirements.txt
 
 ### Dataset
 
-📥 I download the dataset on [Kaggle](https://www.kaggle.com/mlg-ulb/creditcardfraud)
+All important files used for my project saved [here](https://drive.google.com/drive/u/0/folders/12q21VCLoatz58Nr45ATdJmZi33Z2xMot).
+
+📥 I download the dataset on [Kaggle](https://www.kaggle.com/mlg-ulb/creditcardfraud).
 
 The dataset contains transactions made by credit cards in September 2013 by european cardholders.
 This dataset presents transactions that occurred in two days, where we have 492 frauds out of 284 807 transactions. The dataset is highly unbalanced, the positive class (frauds) account for 0.17% of all transactions.
@@ -98,16 +100,23 @@ creditcard = pd.read_csv(filepath)
 Credit card dataset contains continue values but my target (`Class`) is discrete values : It's a supervised Machine Learning case (Classification).
 
 Some relevant informations are :
-- No null values
-- 1081 duplicates
+- No null values : 
+```creditcard.isna().sum()```
+- 1081 duplicates :
+```
+creditcard.duplicated().sum()
+creditcard.drop_duplicates(inplace=True)
+```
 
 - `Amount` mean = 88€
 - `Amount` max = 25 691€
 - `Time` max = 172 792s (i.e. 48h)
+```creditcard.describe()```
+
 
 ### 1.2 Data Analysis
 
-According to Kaggle documentation, `V1` is a result of a PCA Dimensionality reduction to protect user identities and sensitive features (`V1`to `V8`) so I decide to select `Time`, `Amount` and `V1` to visualize my data.
+According to Kaggle documentation, `V1` is a result of a PCA Dimensionality reduction to protect user identities and sensitive features (`V1`to `V8`) so I select `Time`, `Amount` and `V1` to visualize my data.
 
 #### Fraudulent/Non-fraudulent transactions distribution :
     
@@ -133,7 +142,7 @@ I plot *Transaction Amount* for fraudulent and non-fraudulent transactions to ha
 
 #### Time transactions distribution :
 
-Transactions are on **two days** that corresponds to 48 hours (1 hour = 3600s):  I convert **hour** to **second**.
+Transactions are on **two days** that corresponds to **48 hours** (1 hour = 3600s):  I convert **hour** to **second**.
 I constat that transactions time is globaly seasonal.
 
 <img src='graph/credit-card-transactions-time-distributions.jpg'>
@@ -153,7 +162,7 @@ I can clearly see that most of the features **don't correlate to other features*
 
 ## 2. Anomaly Detection
 
-Firstly, I build Supervised Machine Learning model to dentify fraudulent credit card transactions and secondly I use Unsupervised Machine Learning to compare results.
+Firstly, I build Supervised Machine Learning model to identify fraudulent credit card transactions and secondly I use Unsupervised Machine Learning model to compare results.
 
 ### 2.1. Using Supervised Machine Learning 🤖
 
@@ -162,7 +171,7 @@ Firstly, I build Supervised Machine Learning model to dentify fraudulent credit 
 I select this following features to build `X` :
 - `V1`, `V2`, … `V28` : principal components obtained with PCA
 - `Time` (in hours): contains the seconds elapsed between each transaction and the first transaction in the dataset. 
-- `Amount` (in €) : transaction amount
+- `Amount` (in euros) : transaction amount
 
 ```
 X = creditcard.iloc[:, :30]
@@ -255,8 +264,9 @@ def get_logistic_regression(C=1.0):
     return y_pred, y_pred_proba
 
 ```
+I predict and evaluate my model with `accuracy_score` and `classification_report` from scikit-learn :
 
-Prediction for C=1.0:
+1. Prediction for `C=1.0`:
 ```
 #Prediction for C=1.0
 y_pred_lr, y_pred_proba_lr = get_logistic_regression(C=1.0)
@@ -270,19 +280,21 @@ acc_lr
 ```
 `accuracy_score = 97.23%`
 
-Prediction for C=0.1:
+2. Prediction for `C=0.1`:
+
 <img src='result/credit-card-fraud-detection-lr-c-01.png'>
 
 `accuracy_score = 97.24%`
 
-Prediction for C=0.01:
+3. Prediction for `C=0.01`:
+
 <img src='result/credit-card-fraud-detection-lr-c-001.png'>
 
 `accuracy_score = 97.26%`
 
 ###### ROC Curve
 
-I plot ROC Curve to choose the best predictions :
+I plot ROC Curve to choose the best model :
 
 ```
 #Compute ROC characteristic
@@ -295,7 +307,7 @@ fpr_lr_c_001, tpr_lr_c_001, threshold_lr_c_001 = roc_curve(y_test, y_pred_proba_
 plt.figure(figsize=(10, 8))
 
 #Plot ROC Curve for Logistic Regression
-plt.title('ROC Curve for Logistic Regession', fontsize=14)                    #ROC Curve graph Title
+plt.title('ROC Curve for Logistic Regession', fontsize=14)                                #ROC Curve graph Title
 
 #Plot ROC Curve for Logistic Regression for C=1.0
 plt.plot(fpr_lr, tpr_lr, label=f'Logistic Regression Classifier Score for Logistic Regression for C=1.0: {acc_lr}%')
@@ -329,7 +341,7 @@ plt.show()
 ```
 <img src='graph/credit-card-fraud-roc-curve-lr.jpg'>
 
-I validate Logistic Regression model for `C = 0.1`.
+I validate Logistic Regression model for `C = 0.01` because it has a **best accuracy_score : 97.26%**.
 
 ##### Random Forest Classifier
 
@@ -372,8 +384,9 @@ def get_random_forest_classifier(n_estimators=100, max_depth=50):
 
     return y_pred, y_pred_proba
 ```
+I predict and evaluate my model with `accuracy_score` and `classification_report` from scikit-learn :
 
-Prediction for n_estimators=100, max_depth=50 :
+1. Prediction for `n_estimators=100, max_depth=50` :
 ```
 #Prediction for n_estimators=100, max_depth=50
 y_pred_rf, y_pred_proba_rf = get_random_forest_classifier(n_estimators=100, max_depth=50)
@@ -382,13 +395,13 @@ y_pred_rf, y_pred_proba_rf = get_random_forest_classifier(n_estimators=100, max_
 
 `accuracy_score = 99.96%`
 
-Prediction for n_estimators=100, max_depth=None :
+Prediction for `n_estimators=100, max_depth=None` :
 
 <img src='result/credit-card-fraud-detection-rf-depth-none.png'>
 
 `accuracy_score = 99.96%`
 
-Prediction for n_estimators=50, max_depth=None :
+Prediction for `n_estimators=50, max_depth=None` :
 
 <img src='result/credit-card-fraud-detection-rf-est-50.png'>
 
@@ -396,11 +409,11 @@ Prediction for n_estimators=50, max_depth=None :
 
 ###### ROC Curve
 
-I plot ROC Curve to choose the best predictions :
+I plot ROC Curve to choose the best model :
 
 <img src='graph/credit-card-fraud-roc-curve-rf.jpg'>
 
-I validate Logistic Regression model for `n_estimators = 100, max_depth = None`.
+I validate Logistic Regression model for `n_estimators = 100, max_depth = None` because the ROC score is better.
 
 
 ## Authors

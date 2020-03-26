@@ -22,9 +22,9 @@ I realized several projects in Machine Learning / Deep Learning based on various
 *Source : University of Oxford :* [VoxCeleb Speaker Recognition Challenge (VoxSRC)](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/competition.html)
 
 
-### Anomaly Detection
+### [Anomaly Detection](https://github.com/Jennifer974/my-projects/tree/master/anomaly-detection)
 
-- 💳 Credit card fraud detection : identify fraudulent credit card transactions
+- 💳 [Credit card fraud detection](https://github.com/Jennifer974/my-projects/tree/master/anomaly-detection/credit-card-fraud-detection) : identify fraudulent credit card transactions
 
 *Source : Kaggle Challenge :* [Credit card fraud detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/)
 
