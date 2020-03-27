@@ -21,6 +21,7 @@ Some companies are doing really good. For instance, Paypal has developed really 
 
 ## Getting Started
 
+This project is coded in Python.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 
@@ -86,7 +87,7 @@ from sklearn.metrics import roc_curve
 
 ## 1. Exploration Data Exploration
 
-I load credit card dataset in python :
+I load credit card dataset in pandas dataframe :
 ```
 #Define dataset path :
 filepath = os.path.join('data', 'creditcard.csv')
@@ -97,32 +98,54 @@ creditcard = pd.read_csv(filepath)
 
 ### 1.1 Data Cleaning and Exploration
 
-Credit card dataset contains continue values but my target (`Class`) is discrete values : It's a supervised Machine Learning case (Classification).
+As we can see, the data has thirty one columns as follows:
+- `V1`, `V2`, … `V28` : principal components obtained with PCA
+- `Time`: seconds elapsed between each transaction and the first transaction in the dataset. 
+- `Amount`: transaction Amount (euros), this feature can be used for example-dependant cost-senstive learning. 
+- `Class`: response variable which takes value 1 in case of fraud and 0 otherwise
+```
+creditcard.shape
 
-Some relevant informations are :
-- No null values : 
+#see the first five rows of data
+creditcard.head()
 ```
-creditcard.isna().sum()
+It contains continue values but my target (`Class`) is discrete values : It's a supervised Machine Learning case (Classification).
 ```
-
-- 1081 duplicates :
+creditcard.info()
 ```
-creditcard.duplicated().sum()
-creditcard.drop_duplicates(inplace=True)
-```
-
+Next, I display some statistical summaries of the numerical columns below :
 - `Amount` mean = 88€
 - `Amount` max = 25 691€
 - `Time` max = 172 792s (i.e. 48h)
 
 ```
+#Statistical summaries of the numerical columns
 creditcard.describe()
 ```
+Some relevant informations with data cleaning are :
+- No null values : 
+```
+#Numbers of null values
+creditcard.isna().sum()
+```
+- 1081 duplicates :
+```
+#Numbers of duplicates
+creditcard.duplicated().sum()
 
+#Drop duplicates
+creditcard.drop_duplicates(inplace=True)
+```
 
 ### 1.2 Data Analysis
 
-According to Kaggle documentation, `V1` is a result of a PCA Dimensionality reduction to protect user identities and sensitive features (`V1`to `V8`) so I select `Time`, `Amount` and `V1` to visualize my data.
+According to Kaggle documentation, `V1` is a result of a PCA Dimensionality reduction to protect user identities and sensitive features (`V1`to `V8`) so I select `Time`, `Amount` and `V1` to visualize my data :
+
+<img src='graph/credit-card-fraud-dist-amount-time.jpg'>
+
+<img src='graph/credit-card-fraud-dist-V1-time.jpg'>
+
+<img src='graph/credit-card-fraud-dist-amount-V1.jpg'>
 
 #### Fraudulent/Non-fraudulent transactions distribution :
     
@@ -163,8 +186,11 @@ Correlation matrix graphically gives us an idea of how features correlate with e
 
 <img src='graph/credit-card-transactions-correlation-heatmap.jpg'>
 
-I can clearly see that most of the features **don't correlate to other features** but there are some features that either has a **positive or a negative correlation** with each other. For example, `V3` and `Time` are negatively correlated. 
+I can clearly see that most of the features **don't correlate to other features** but there are some features that either has a **positive or a negative correlation** with each other. For example, `V12` and `V17` are negatively correlated. 
 
+<img src='graph/credit-card-fraud-dist-v12-v17.jpg'>
+
+<img src='graph/credit-card-fraud-dist-v1-v3.jpg'>
 
 ## 2. Anomaly Detection
 
@@ -490,5 +516,6 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 
 ## Acknowledgments
 
+* Python 
 * Machine Learning
 * Anomaly Detection
