@@ -21,7 +21,8 @@ Some companies are doing really good. For instance, Paypal has developed really 
 
 ## Getting Started
 
-This project is coded in Python.
+This project **is coded in Python**.
+
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 
@@ -106,7 +107,7 @@ As we can see, the data has thirty one columns as follows:
 ```
 creditcard.shape
 
-#see the first five rows of data
+#Show the first five rows of data
 creditcard.head()
 ```
 It contains continue values but my target (`Class`) is discrete values : It's a supervised Machine Learning case (Classification).
@@ -214,7 +215,7 @@ Labels are `Class` : it takes value 1 in case of fraud and 0 otherwise : it repr
 ```
 y = creditcard['Class']
 ```
-I **split** data into **train** and **test** to build model with `train_test_split` function from scikit-learn :
+I **split** data into **train** and **test** to build model with `train_test_split` method from scikit-learn :
 
 ```
 X_train, X_test, y_train, y_test = train_test_split(X, y, 
@@ -355,17 +356,35 @@ acc_lr
 ```
 `accuracy_score = 97.23%`
 
+<img src='graph/credit-card-fraud-prediction-lr_c_10.jpg'>
+
+```
+print(int(y_pred_lr.sum()), "transactions classified as fraudulent out of", y_test.sum())
+```
+
+`1651 transactions classified as fraudulent out of 95`
+
+
 2. Prediction for `C=0.1`:
 
 <img src='result/credit-card-fraud-detection-lr-c-01.png'>
 
 `accuracy_score = 97.24%`
 
+<img src='graph/credit-card-fraud-prediction-lr_c_01.jpg'>
+
+`1646 transactions classified as fraudulent out of 95`
+
+
 3. Prediction for `C=0.01`:
 
 <img src='result/credit-card-fraud-detection-lr-c-001.png'>
 
 `accuracy_score = 97.26%`
+
+<img src='graph/credit-card-fraud-prediction-lr_c_001.jpg'>
+
+`1646 transactions classified as fraudulent out of 95`
 
 ###### ROC Curve
 
@@ -418,7 +437,6 @@ plt.show()
 
 I validate Logistic Regression model for `C = 0.01` because it has a **best accuracy_score : 97.26%**.
 
-<img src='graph/credit-card-fraud-prediction-lr.jpg'>
 
 ##### Random Forest Classifier
 
@@ -472,17 +490,26 @@ y_pred_rf, y_pred_proba_rf = get_random_forest_classifier(n_estimators=100, max_
 
 `accuracy_score = 99.96%`
 
+`87 transactions classified as fraudulent out of 95`
+
+
 2. Prediction for `n_estimators=100, max_depth=None` :
 
 <img src='result/credit-card-fraud-detection-rf-depth-none.png'>
 
 `accuracy_score = 99.96%`
 
+`84 transactions classified as fraudulent out of 95`
+
+
 3. Prediction for `n_estimators=50, max_depth=None` :
 
 <img src='result/credit-card-fraud-detection-rf-est-50.png'>
 
 `accuracy_score = 99.96%`
+
+`86 transactions classified as fraudulent out of 95`
+
 
 ###### ROC Curve
 
@@ -503,6 +530,116 @@ I plot ROC Curve for Supervised Machine Learning models and I validate Random Fo
 <img src='result/credit-card-fraud-detection-rf-depth-none.png'>
 
 
+### 2.2 Using Unsupervised Machine Learning 🤖
+
+I import data scaled (unbalanced) from the last part.
+```
+#Import train and test data on local file
+filepath_creditcard_train_test = os.path.join('data', 'creditcard_train_test_scaled.pkl')
+
+with open(filepath_creditcard_train_test, 'rb') as f:
+    (X_train, X_test, y_train, y_test) = pickle.load(f)
+```
+Here, I implement Gaussian Distribution based, Local Outlier Factor and Isolation Forest to detect fraudulent transactions. 
+
+**Prerequisite** : I reduce my data to non fraudulent transactions to fit Anomaly Detection models.
+
+#### 2.2.1 Gaussian Distribution based
+
+I define Logistic Regression function :
+
+```
+def get_gaussian_distribution_based():
+    '''
+    This function predicts Class transactions with Gaussian Distribution based model
+    
+    Parameters
+    ------------
+
+    Returns
+    ------------
+    y_pred : array of int
+        contains predictions for fraudulent of non-fraudlent transactions
+    y_pred_proba : array of int
+        contains the probability of the predicted class
+    '''
+    #Instanciate model
+    covariance = EllipticEnvelope(random_state=0, support_fraction=1)
+    
+    #Model fitting
+    print('Gaussian Distribution based time to fit :')
+    %time
+    covariance.fit(X_train)
+
+    #Model predictions
+    print('\nGaussian Distribution based time to predict y :')
+    %time
+    y_pred = covariance.predict(X_test)
+    print('\nGaussian Distribution based time to predict y proba :')
+    %time
+    y_pred_proba = covariance.score_samples(X_test)
+    return y_pred, y_pred_proba
+```
+I predict and evaluate my model with `accuracy_score` and `classification_report` from scikit-learn :
+```
+#Prediction :
+y_pred_covariance, y_pred_proba = get_gaussian_distribution_based()
+```
+```
+#Predict returns 1 for an inlier and -1 for an outlier
+y_pred_covariance[y_pred_covariance == 1] = 0
+y_pred_covariance[y_pred_covariance == -1] = 1
+```
+`accuracy_score = 89.70%`
+
+<img src='result/credit-card-fraud-detection-cov.png'>
+
+`5912 transactions classified as fraudulent out of 95`
+
+<img src='graph/credit-card-fraud-prediction-GDB.jpg'>
+
+##### ROC Curve
+
+I define a function to plot ROC Curve :
+
+```
+def graph_roc_curve(figsize, title, fpr, tpr, label, accuracy):
+    
+    plt.figure(figsize=figsize)
+
+    #Plot ROC Curve for Supervised Machine Learning Model
+    plt.title(title, fontsize=14)                                                        #ROC Curve graph Title
+
+    #Plot ROC Curve
+    plt.plot(fpr, tpr, label=f'{label} : {accuracy}%')           
+
+    #Plot ROC Curve limited score
+    plt.plot([0, 1], [0, 1], 'k--')
+    plt.annotate('Minimum ROC Score of 50% \n (This is the minimum score to get)',       #Plot arrow legend
+             xy=(0.5, 0.5),                                                              #The point *(x,y)* to annotate.
+             xytext=(0.6, 0.3),                                                          #The position *(x,y)* to place the text at.
+             arrowprops=dict(facecolor='#6E726D', shrink=0.05))                          #The properties used to draw a arrow between the positions *xy* and *xytext*.     
+
+    #Graph property
+    plt.xlabel('False Positive Rate', fontsize=12)                                       #Abscissa label
+    plt.ylabel('True Positive Rate', fontsize=12)                                        #Ordinate label
+    plt.legend(loc='lower right')                                                        #Graph Legend
+    
+    plt.show()
+```
+
+```
+#Compute ROC characteristic
+fpr_cov, tpr_cov, threshold_cov = roc_curve(y_test, y_pred_covariance)
+
+#Plot ROC Curve
+graph_roc_curve((10, 8), 'ROC Curve Gaussian Distribution Based', fpr_cov, tpr_cov, 'ROC Curve DGB', acc_cov)
+```
+
+<img src='graph/credit-card-fraud-prediction-gdb.jpg'>
+
+
+
 ## Authors
 
 * **Jennifer LENCLUME** - *Data Scientist* - 
@@ -516,6 +653,7 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 
 ## Acknowledgments
 
-* Python 
-* Machine Learning
-* Anomaly Detection
+* Python
+* Data Visualization
+* Exploration Data Analysis
+* Machine Learning : Anomaly Detection
