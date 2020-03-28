@@ -520,6 +520,7 @@ I validate Random Forest model for `n_estimators = 100, max_depth = None` becaus
 
 <img src='graph/credit-card-fraud-prediction-rf.jpg'>
 
+
 ##### Conclusion
 
 I plot ROC Curve for Supervised Machine Learning models and I validate Random Forest model for `n_estimators = 100, max_depth = None` because the ROC score is better.
@@ -542,6 +543,7 @@ with open(filepath_creditcard_train_test, 'rb') as f:
 Here, I implement Gaussian Distribution based, Local Outlier Factor and Isolation Forest to detect fraudulent transactions. 
 
 **Prerequisite** : I reduce my data to non fraudulent transactions to fit Anomaly Detection models.
+
 
 #### 2.2.1 Gaussian Distribution based
 
@@ -595,15 +597,44 @@ y_pred_covariance[y_pred_covariance == -1] = 1
 
 `5912 transactions classified as fraudulent out of 95`
 
-<img src='graph/credit-card-fraud-prediction-GDB.jpg'>
+<img src='graph/credit-card-fraud-prediction-gdb.jpg'>
+
 
 ##### ROC Curve
 
 I define a function to plot ROC Curve :
 
 ```
-def graph_roc_curve(figsize, title, fpr, tpr, label, accuracy):
+def graph_roc_curve(figsize, title, fpr, tpr, label, accuracy, model_name):
+    '''
+    This function draw a ROC Curve
     
+    Parameters
+    ------------
+    figsize : tuple of int
+        figure dimension
+    title : str
+        Graph title
+    fpr : array, shape = [>2]
+        Increasing false positive rates such that element i is the false
+        positive rate of predictions with score >= thresholds[i].
+    tpr :array, shape = [>2]
+        Increasing true positive rates such that element i is the true
+        positive rate of predictions with score >= thresholds[i].
+    label : str
+        Graph label
+    accuracy : float
+        accuracy_score
+    model_name : str
+        model name to save figure
+
+    Returns
+    ------------
+    y_pred : array of int
+        contains predictions for fraudulent of non-fraudlent transactions
+    y_pred_proba : array of int
+        contains the probability of the predicted class
+    '''
     plt.figure(figsize=figsize)
 
     #Plot ROC Curve for Supervised Machine Learning Model
@@ -624,6 +655,12 @@ def graph_roc_curve(figsize, title, fpr, tpr, label, accuracy):
     plt.ylabel('True Positive Rate', fontsize=12)                                        #Ordinate label
     plt.legend(loc='lower right')                                                        #Graph Legend
     
+    #Save the graph with plt.savefig
+    filepath_roc_curve = os.path.join('graph', f'credit-card-fraud-roc-{model_name}.jpg')
+    plt.savefig(filepath_roc_curve,                                                      #Image path
+            format='jpg',                                                                #Image format to save
+            bbox_inches='tight')   
+    
     plt.show()
 ```
 
@@ -632,11 +669,20 @@ def graph_roc_curve(figsize, title, fpr, tpr, label, accuracy):
 fpr_cov, tpr_cov, threshold_cov = roc_curve(y_test, y_pred_covariance)
 
 #Plot ROC Curve
-graph_roc_curve((10, 8), 'ROC Curve Gaussian Distribution Based', fpr_cov, tpr_cov, 'ROC Curve DGB', acc_cov)
+graph_roc_curve((10, 8), 'ROC Curve Gaussian Distribution Based', fpr_cov, tpr_cov, 'ROC Curve DGB', acc_cov, 'gdb')
 ```
 
-<img src='graph/credit-card-fraud-prediction-gdb.jpg'>
+<img src='graph/credit-card-fraud-roc-gdb.jpg'>
 
+
+## Go further
+
+My research can be improved by following step to add : 
+- 3D Data visualization
+- Compute Learning Rate for each models to correct overfitting/underfitting (Regularization)
+- Apply Grid Search/Random Search method for model parameter optimization 
+- Apply undersampling method to balance data for Classification
+- Implement Deep Learning model to detect fraudulent transactions : AutoEncoders
 
 
 ## Authors
