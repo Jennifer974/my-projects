@@ -74,7 +74,6 @@ from imblearn.over_sampling import SMOTE                                        
 #Supervised Machine Learning Model
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-from sklear.svm import SVC
 
 #Unsupervised Machine Learning Model
 from sklearn.covariance import EllipticEnvelope
@@ -356,7 +355,7 @@ acc_lr
 ```
 `accuracy_score = 97.23%`
 
-<img src='graph/credit-card-fraud-prediction-lr_c_10.jpg'>
+<img src='graph/credit-card-fraud-prediction-lr-c-10.jpg'>
 
 ```
 print(int(y_pred_lr.sum()), "transactions classified as fraudulent out of", y_test.sum())
@@ -371,7 +370,7 @@ print(int(y_pred_lr.sum()), "transactions classified as fraudulent out of", y_te
 
 `accuracy_score = 97.24%`
 
-<img src='graph/credit-card-fraud-prediction-lr_c_01.jpg'>
+<img src='graph/credit-card-fraud-prediction-lr-c-01.jpg'>
 
 `1646 transactions classified as fraudulent out of 95`
 
@@ -382,7 +381,7 @@ print(int(y_pred_lr.sum()), "transactions classified as fraudulent out of", y_te
 
 `accuracy_score = 97.26%`
 
-<img src='graph/credit-card-fraud-prediction-lr_c_001.jpg'>
+<img src='graph/credit-card-fraud-prediction-lr-c-001.jpg'>
 
 `1646 transactions classified as fraudulent out of 95`
 
