@@ -584,7 +584,7 @@ y_pred_boost, y_pred_proba_boost = get_gradient_boosting()
 
 <img src='graph/credit-card-fraud-prediction-boost.jpg'>
 
-**Result**: This model is not adequate to detect fraudulent transaction because f1_score is lower (`f1_score=16%`) : it is not at all precise.
+**Result**: This model isn't adequate to detect fraudulent transaction because f1_score is lower (`f1_score=16%`) : it is not at all precise.
 
 ##### ROC Curve
 
@@ -875,11 +875,21 @@ y_pred_if_est_100[y_pred_if_est_100 == -1] = 1
 
 ##### ROC Curve
 
-<img src='graph/credit-card-fraud-roc-if.jpg'>
+<img src='graph/credit-card-fraud-roc-if-est-100.jpg'>
+
 
 ## Conclusion
 
-Precision as the name says, says how precise (how sure) is our model in detecting fraud transactions while recall is the number of fraud cases our model is able to detect : I would like to have a high recall for fraud prediction.
+Precision as the name says, says how precise (how sure) is our model in detecting fraud transactions while recall is the number of fraud cases our model is able to detect : I would like to have a high recall for fraud prediction and high F1 score.
+
+Logistic Regresion, Gradient Boosting, Gaussian Distribution Based, Local Outlier Factor and Isolation Forest has a lower F1 score but **Random Forest Classifier** as **88% of F1 score** : It's the best model to detect fraudulent transactions.
+
+<img src='result/credit-card-fraud-detection-rf-depth-none.png'>
+
+`accuracy_score = 99.96%`
+
+`84 transactions classified as fraudulent out of 95`
+
 
 ## Go further
 
