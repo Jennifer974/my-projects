@@ -73,7 +73,7 @@ from imblearn.over_sampling import SMOTE                                        
 
 #Supervised Machine Learning Model
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 
 #Unsupervised Machine Learning Model
 from sklearn.covariance import EllipticEnvelope
@@ -252,7 +252,7 @@ X_train, y_train = oversampling.fit_resample(X_train, y_train)
 
 #### 2.1.3 Modeling
 
-Logistic Regression and Random Forest are models (from scikit-learn) I used to predict fraudulent transactions.
+Logistic Regression, Random Forest and Gradient Boosting are models (from scikit-learn) I used to predict fraudulent transactions.
 
 I build this function to draw prediction later :
 ```
@@ -385,6 +385,8 @@ print(int(y_pred_lr.sum()), "transactions classified as fraudulent out of", y_te
 
 `1646 transactions classified as fraudulent out of 95`
 
+**Result** : Recall of Logistic Regression is 91% but Precision is 5% : this model is not adapted to detect fraudulent transactions because it is not at all precise.
+
 ###### ROC Curve
 
 I plot ROC Curve to choose the best model :
@@ -434,7 +436,8 @@ plt.show()
 ```
 <img src='graph/credit-card-fraud-roc-curve-lr.jpg'>
 
-I validate Logistic Regression model for `C = 0.01` because it has a **best accuracy_score : 97.26%**.
+
+**Result** : ROC AUC of Logistic Regression model for `C=0.01` is better than the other predictions (`C=1.0` and `C=0.1`) but it's not precise.
 
 
 ##### Random Forest Classifier
@@ -509,6 +512,7 @@ y_pred_rf, y_pred_proba_rf = get_random_forest_classifier(n_estimators=100, max_
 
 `86 transactions classified as fraudulent out of 95`
 
+**Result** : Recall of Random Forest Classifier (`n_estimators=100, max_depth=None`) is 84%, Precision is 93% : this model is adapted to detect fraudulent transactions because F1 score is better than the other prediction (`f1_score=88%`).
 
 ###### ROC Curve
 
@@ -516,14 +520,79 @@ I plot ROC Curve to choose the best model :
 
 <img src='graph/credit-card-fraud-roc-curve-rf.jpg'>
 
-I validate Random Forest model for `n_estimators = 100, max_depth = None` because the ROC score is better.
+**Result**: I validate Random Forest model for `n_estimators = 100, max_depth = None` because the ROC score and F1 score are better.
 
 <img src='graph/credit-card-fraud-prediction-rf.jpg'>
 
 
+#### 2.1.3 Gradient Boosting
+
+```
+def get_gradient_boosting(learning_rate=0.1, n_estimators=100, max_depth=3, random_state=0):
+    '''
+    This function predicts Class transactions with Gradient Boosting Classifier model
+    
+    Parameters
+    ------------
+    learning_rate : float, optional (default=0.1)
+        learning rate shrinks the contribution of each tree by `learning_rate`.
+        There is a trade-off between learning_rate and n_estimators.
+    n_estimators : int (default=100)
+        The number of boosting stages to perform. Gradient boosting
+        is fairly robust to over-fitting so a large number usually
+        results in better performance.
+    max_depth : integer, optional (default=3)
+        maximum depth of the individual regression estimators. The maximum
+        depth limits the number of nodes in the tree.
+    random_state : int,
+        RandomState instance or None, optional (default=0)
+          
+    Returns
+    ------------
+    y_pred : array of int
+        contains predictions for fraudulent of non-fraudlent transactions
+    y_pred_proba : array of int
+        contains the probability of the predicted class
+    '''
+    #Instanciate model
+    boost = GradientBoostingClassifier(learning_rate=learning_rate, n_estimators=n_estimators, max_depth=max_depth, random_state=random_state)
+    
+    #Model fitting
+    print('Gradient Boosting Classifier time to fit :')
+    %time
+    boost.fit(X_train, y_train)
+
+    #Model predictions
+    print('\nGradient Boosting Classifier time to predict y :')
+    %time
+    y_pred = boost.predict(X_test)
+    print('\nGradient Boosting Classifier time to predict y proba :')
+    %time
+    y_pred_proba = boost.predict_proba(X_test)
+
+    return y_pred, y_pred_proba
+```
+```
+#Prediction for learning_rate=0.1, n_estimators=100, max_depth=3, random_state=0
+y_pred_boost, y_pred_proba_boost = get_gradient_boosting()
+```
+`accuracy_score = 98.44%`
+
+<img src='result/credit-card-fraud-detection-gb.png'>
+
+`964 transactions classified as fraudulent out of 95`
+
+<img src='graph/credit-card-fraud-prediction-boost.jpg'>
+
+**Result**: This model is not adequate to detect fraudulent transaction because f1_score is lower (`f1_score=16%`) : it is not at all precise.
+
+##### ROC Curve
+
+<img src='graph/credit-card-fraud-roc-curve-boost.jpg'>
+
 ##### Conclusion
 
-I plot ROC Curve for Supervised Machine Learning models and I validate Random Forest model for `n_estimators = 100, max_depth = None` because the ROC score is better.
+I plot ROC Curve for Supervised Machine Learning models and I validate Random Forest model for `n_estimators = 100, max_depth = None` (ROC score and F1 score is higher).
 
 <img src='graph/credit-card-fraud-roc-supervisedML.jpg'>
 
@@ -594,6 +663,8 @@ y_pred_covariance[y_pred_covariance == -1] = 1
 `accuracy_score = 89.70%`
 
 <img src='result/credit-card-fraud-detection-cov.png'>
+
+**Result**: Recall of Gaussian Distribution Based is 86% but precision is 1% : Gaussian Distribution Based is not adapted to detect fraudulent transactions (`f1_score=3%`).
 
 `5912 transactions classified as fraudulent out of 95`
 
@@ -674,6 +745,141 @@ graph_roc_curve((10, 8), 'ROC Curve Gaussian Distribution Based', fpr_cov, tpr_c
 
 <img src='graph/credit-card-fraud-roc-gdb.jpg'>
 
+
+#### 2.2.2 Local Outlier Factor
+
+```
+def get_local_outlier_factor(n_neighbors=20):
+    '''
+    This function predicts Class transactions with LOF model
+    
+    Parameters
+    ------------
+    n_neighbors : int, optional (default=20)
+        Number of neighbors to use by default for :meth:`kneighbors` queries.
+        If n_neighbors is larger than the number of samples provided,
+        all samples will be used.
+        
+
+    Returns
+    ------------
+    y_pred : array of int
+        contains predictions for fraudulent of non-fraudlent transactions
+    y_pred_proba : array of int
+        contains the probability of the predicted class
+    '''
+    #Instanciate model
+    local_outlier = LocalOutlierFactor(n_neighbors=n_neighbors, 
+                                       novelty=True)                      #novelty=True because X_train (fit) and X_test (predict) is different
+    
+    #Model fitting
+    print('LOF time to fit :')
+    %time
+    local_outlier.fit(X_train)
+
+    #Model predictions
+    print('\nLOF time to predict y :')
+    %time
+    y_pred = local_outlier.predict(X_test)
+    print('\nLOF time to predict y proba :')
+    %time
+    y_pred_proba = -local_outlier.score_samples(X_test)                   #LOF returns negative score 
+    
+    return y_pred, y_pred_proba
+```
+```
+#Prediction :
+y_pred_lof_neigh_20, y_pred_proba_lof_neigh_20 = get_local_outlier_factor(n_neighbors=20)
+
+#Predict returns 1 for an inlier and -1 for an outlier
+y_pred_lof_neigh_20[y_pred_lof_neigh_20 == 1] = 0
+y_pred_lof_neigh_20[y_pred_lof_neigh_20 == -1] = 1
+```
+<img src='result/credit-card-fraud-detection-lof.png'>
+
+`accuracy_score = 93.83%`
+
+`3445 transactions classified as fraudulent out of 95`
+
+<img src='graph/credit-card-fraud-prediction-lof_neigh_20.jpg'>
+
+**Result**: This model is not adequate to detect fraudulent transaction because recall and precision is very lower. 
+To improve model performance, I will increase numbers of n_neighbors but LOF computation is very high.
+
+##### ROC Curve
+
+<img src='graph/credit-card-fraud-roc-lof-neigh-20.jpg'>
+
+
+#### 2.2.3 Isolation Forest
+
+```
+def get_isolation_forest(n_estimators=100, contamination="auto", random_state=0):
+    '''
+    This function predicts Class transactions with Isolation Forest model
+    
+    Parameters
+    ------------
+    n_estimators : int, optional (default=100)
+        The number of base estimators in the ensemble.
+    contamination : 'auto' or float, optional (default='auto')
+        The amount of contamination of the data set, i.e. the proportion
+        of outliers in the data set. 
+    behaviour : str, default='new'
+        This parameter has not effect, is deprecated, and will be removed.
+    random_state : int, 
+        RandomState instance or None (default=0)
+    
+    Returns
+    ------------
+    y_pred : array of int
+        contains predictions for fraudulent of non-fraudlent transactions
+    y_pred_proba : array of int
+        contains the probability of the predicted class
+    '''
+    #Instanciate model
+    isol_forest = IsolationForest(n_estimators=n_estimators, contamination=contamination, random_state=random_state)
+
+    #Model fitting
+    print('IF time to fit :')
+    %time
+    isol_forest.fit(X_train)
+
+    #Model predictions
+    print('\nIF time to predict y :')
+    %time
+    y_pred = isol_forest.predict(X_test)
+    print('\nIF time to predict y proba :')
+    %time
+    y_pred_proba = -isol_forest.score_samples(X_test)                         #IF returns negative score 
+    
+    return y_pred, y_pred_proba
+```
+
+```
+#Prediction :
+y_pred_if_est_100, y_pred_proba_if_est_100 = get_isolation_forest()
+
+#Predict returns 1 for an inlier and -1 for an outlier
+y_pred_if_est_100[y_pred_if_est_100 == 1] = 0
+y_pred_if_est_100[y_pred_if_est_100 == -1] = 1
+```
+
+`accuracy_score = 95.94%`
+
+<img src='result/credit-card-fraud-detection-if.png'>
+
+<img src='graph/credit-card-fraud-prediction-if.jpg'>
+
+**Result**: This model is not adequate to detect fraudulent transaction because f1_score is very lower (`f1_score=6%`) : it is not at all precise.
+
+##### ROC Curve
+
+<img src='graph/credit-card-fraud-roc-if.jpg'>
+
+## Conclusion
+
+Precision as the name says, says how precise (how sure) is our model in detecting fraud transactions while recall is the number of fraud cases our model is able to detect : I would like to have a high recall for fraud prediction.
 
 ## Go further
 
