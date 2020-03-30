@@ -85,7 +85,7 @@ from sklearn.metrics import f1_score, accuracy_score, classification_report
 from sklearn.metrics import roc_curve
 ```
 
-## 1. Exploration Data Exploration
+## 1. Exploration Data Analysis
 
 I load credit card dataset in pandas dataframe :
 ```
