@@ -51,7 +51,10 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 
 ## Acknowledgments
 
+* Python
+* Data Visualization
+* Exploration Data Analysis
+* Data Cleaning
 * Machine Learning
 * Deep Learning
 * Audio Treatment
-
