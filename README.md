@@ -29,7 +29,7 @@ I realized several projects in Machine Learning / Deep Learning based on various
 *Source : Kaggle Challenge :* [Credit card fraud detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/)
 
 
-### NLP
+### Natural Language Processing
 
 - 💬 Quora : detect toxic content to improve online conversations
 
@@ -51,6 +51,10 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 
 ## Acknowledgments
 
+* Python
+* Data Visualization
+* Exploration Data Analysis
+* Data Cleaning
 * Machine Learning
 * Deep Learning
 * Audio Treatment

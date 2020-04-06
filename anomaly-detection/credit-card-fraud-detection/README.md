@@ -9,6 +9,8 @@ Photo by <a href="https://burst.shopify.com/@ndekhors?utm_campaign=photo_credit&
 
 Identify fraudulent credit card transactions 💳.
 
+*Source : Kaggle Challenge :* [Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud)
+
 
 ## Context
 
@@ -98,7 +100,7 @@ creditcard = pd.read_csv(filepath)
 
 ### 1.1 Data Cleaning and Exploration
 
-As we can see, the data has thirty one columns as follows:
+As we can see, the data has **thirty one columns** as follows:
 - `V1`, `V2`, … `V28` : principal components obtained with PCA
 - `Time`: seconds elapsed between each transaction and the first transaction in the dataset. 
 - `Amount`: transaction Amount (euros), this feature can be used for example-dependant cost-senstive learning. 
@@ -109,11 +111,11 @@ creditcard.shape
 #Show the first five rows of data
 creditcard.head()
 ```
-It contains continue values but my target (`Class`) is discrete values : It's a supervised Machine Learning case (Classification).
+It contains **continue values** but my target (`Class`) is **discrete values** : It's a **Supervised Machine Learning** case (Classification).
 ```
 creditcard.info()
 ```
-Next, I display some statistical summaries of the numerical columns below :
+Next, I display some **statistical summaries** of the numerical columns below :
 - `Amount` mean = 88€
 - `Amount` max = 25 691€
 - `Time` max = 172 792s (i.e. 48h)
@@ -122,15 +124,15 @@ Next, I display some statistical summaries of the numerical columns below :
 #Statistical summaries of the numerical columns
 creditcard.describe()
 ```
-Some relevant informations with data cleaning are :
-- No null values : 
+Some relevant informations with **Data Cleaning** are :
+- **No null values** : 
 ```
-#Numbers of null values
+#Number of null values
 creditcard.isna().sum()
 ```
-- 1081 duplicates :
+- **1081 duplicates** :
 ```
-#Numbers of duplicates
+#Number of duplicates
 creditcard.duplicated().sum()
 
 #Drop duplicates
@@ -214,7 +216,7 @@ Labels are `Class` : it takes value 1 in case of fraud and 0 otherwise : it repr
 ```
 y = creditcard['Class']
 ```
-I **split** data into **train** and **test** to build model with `train_test_split` method from scikit-learn :
+I **split** data into **train** and **test** to build model with `train_test_split` method from `scikit-learn` :
 
 ```
 X_train, X_test, y_train, y_test = train_test_split(X, y, 
