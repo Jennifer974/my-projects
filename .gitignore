@@ -6,7 +6,8 @@ venv/
 final-project-data/
 mfcc_images/
 
-final-project-vivadata-03-2020/.ipynb_checkpoints/Final-Project-checkpoint.ipynb
+#Jupyter notebook save
+*checkpoint.ipynb
 
 ###Anomaly Detection
 
