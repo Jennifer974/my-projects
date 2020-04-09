@@ -31,9 +31,17 @@ I realized several projects in Machine Learning / Deep Learning based on various
 
 ### Natural Language Processing
 
-- 💬 Quora : detect toxic content to improve online conversations
+- 💬 Quora Insincere Questions Classification : detect toxic content to improve online conversations
 
 *Source : Kaggle Challenge :* [Quora insincere questions](https://www.kaggle.com/c/quora-insincere-questions-classification)
+
+
+
+### Customer Churn
+
+- 🛰 Telcom Customer Churn : develop focused customer retention programs
+
+*Source : Kaggle Challenge :* [Telco Customer Churn](https://www.kaggle.com/blastchar/telco-customer-churn)
 
 
 
