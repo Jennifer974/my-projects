@@ -29,9 +29,9 @@ I realized several projects in Machine Learning / Deep Learning based on various
 *Source : Kaggle Challenge :* [Credit card fraud detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/)
 
 
-### Natural Language Processing
+### [Natural Language Processing](https://github.com/Jennifer974/my-projects/tree/master/NLP)
 
-- 💬 Quora Insincere Questions Classification : detect toxic content to improve online conversations
+- 💬 [Quora Insincere Questions Classification](https://github.com/Jennifer974/my-projects/tree/master/NLP/quora-insincere-classification) : detect toxic content to improve online conversations
 
 *Source : Kaggle Challenge :* [Quora insincere questions](https://www.kaggle.com/c/quora-insincere-questions-classification)
 
@@ -65,4 +65,3 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 * Data Cleaning
 * Machine Learning
 * Deep Learning
-* Audio Treatment

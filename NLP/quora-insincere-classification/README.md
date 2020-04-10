@@ -46,7 +46,7 @@ Quora provided a dataset of questions with a label, and the features are the fol
 - `question_text`: the text of the question
 - `target`: either 1 (for insincere question) or 0
 
-🔦 In this competition, the metric used for performance evaluation is the **F1-score**.
+🔦 In this project, the metric used for performance evaluation is the **F1-score**.
 
 
 ### Import
@@ -88,7 +88,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, f1_score
 ```
 
-I load credit card dataset in pandas dataframe :
+I load Quora questions dataset in a pandas dataframe :
 ```
 #Define dataset path :
 filepath = os.path.join('data','quora_train.csv')
