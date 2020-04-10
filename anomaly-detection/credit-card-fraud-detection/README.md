@@ -116,9 +116,14 @@ It contains **continue values** but my target (`Class`) is **discrete values** :
 creditcard.info()
 ```
 Next, I display some **statistical summaries** of the numerical columns below :
-- `Amount` mean = 88€
-- `Amount` max = 25 691€
-- `Time` max = 172 792s (i.e. 48h)
+- `Amount` :
+    - mean = 88€
+    - max = 25 691€
+    - standard deviation : 250€
+`Amount` distribution is higher around the average because `standard_deviation > 0.5 * mean`
+
+- `Time` :
+    - max = 172 792s (i.e. 48h)
 
 ```
 #Statistical summaries of the numerical columns
@@ -239,7 +244,7 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 ```
-##### Data oversampling
+##### Data oversampled
 
 Credit card dataset is highly unbalanced. I use **oversampling** method to balance dataset and improve model performance: **SMOTE** : it consists to create data for fradulent transactions to balance labels for **train data**.
 
