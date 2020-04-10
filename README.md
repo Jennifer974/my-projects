@@ -66,8 +66,3 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 * Machine Learning
 * Deep Learning
 * Audio Treatment
-* Natural Language Processing
-    * Text Processing : NLTK
-    * Sentiment Analysis : TextBlob
-    * Word Embedding : Glove
-
