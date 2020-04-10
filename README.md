@@ -65,4 +65,3 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 * Data Cleaning
 * Machine Learning
 * Deep Learning
-* Audio Treatment
