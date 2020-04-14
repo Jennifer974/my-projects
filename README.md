@@ -63,5 +63,18 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 * Data Visualization
 * Exploration Data Analysis
 * Data Cleaning
-* Machine Learning
-* Deep Learning
+
+* Audio Treatment :
+    - Librosa
+* Natural Language Processing
+    - NLTK
+* Sentiment Analysis : 
+    - TextBlob
+* Word Embedding :
+    - Glove
+
+* Machine Learning :
+    - Scikit-Learn
+* Deep Learning :
+    - Tensorflow
+    - Keras
