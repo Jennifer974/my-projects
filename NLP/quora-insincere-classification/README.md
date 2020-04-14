@@ -462,12 +462,10 @@ Correlation matrix graphically gives us an idea of how features correlate with e
 I can clearly see that all features **don't correlate**.
 
 
-
 ## Go further
 
 - Use Spacy library
 - Implement Deep Learning model to detect fraudulent transactions
-
 
 
 ## Authors
