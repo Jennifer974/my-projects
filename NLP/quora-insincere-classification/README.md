@@ -462,10 +462,117 @@ Correlation matrix graphically gives us an idea of how features correlate with e
 I can clearly see that all features **don't correlate**.
 
 
+### 4.4 Word Embeddings
+
+Word Embeddings are a **type of word representation that allows words with similar meaning to have a similar representation** : Vector coordinates are assigned to each word. `Glove` is a library I used for Word Embeddings.
+
+First, I define a **function to read glove model** :
+```
+#Define file path
+glove_file = os.path.join('data', 'glove.6B.50d.txt')
+
+def read_glove_vecs(glove_file):
+    '''
+    This function returns words and a dictionary of word embeddings.
+    
+    Parameter
+    -------------
+    glove_file : str
+        contains glove file
+    
+    Returns
+    -------------
+    words : list of str
+        contains dictionary of word.
+    words_to_vec_map : list of float
+        contains vectors associated with each words.
+    '''
+    with open(glove_file, 'r') as f:
+        words = []
+        word_to_vec_map = {}
+        
+        for line in f:
+            line = line.strip().split()
+            curr_word = line[0]
+            words.append(curr_word)
+            word_to_vec_map[curr_word] = np.array(line[1:], dtype=np.float64)
+    
+    print(len(words), 'words are in glove dictionary.')
+    return words, word_to_vec_map
+```
+    #Apply read_glove_vecs function
+    words, word_to_vec_map = read_glove_vecs(glove_file)
+
+**400000 words** are in glove dictionary.
+
+**92.0 % of words on corpus are in dictionary**.
+**8.0 % of words are not on corpus are in dictionary**.
+```
+def is_in_vocab(tokens):
+    '''
+    This function analyzes if word of documents are in dictionary or not.
+    
+    Parameter
+    -------------
+    tokens : list of str
+        contains list of tokens.
+    
+    Returns
+    -------------
+    in_vocab : dict of str, int
+        contains word in dictionary and word frequency in document.
+    out_vocab : list of tuple
+        contains words that are not in the dictionary and word frequency in document.
+    '''
+    in_vocab = {}
+    out_vocab = {}
+    for token in tokens:
+        for word in token:
+            if word.lower() in words:
+                in_vocab[w] = 1
+            elif word in out_vocab.keys():
+                out_vocab[word] += 1
+            else:
+                out_vocab[word] = 1
+    
+    out_vocab_ordered = sorted(out_vocab.items(), key=operator.itemgetter(1))[::-1]
+    
+    return in_vocab, out_vocab_ordered
+```
+
+I computes word embeddings for corpus of questions:
+```
+def get_vector(tokens):
+    '''
+    This function computes word embeddings for documents.
+    
+    Parameter
+    -------------
+    tokens : list of str
+        contains list of tokens.
+    
+    Returns
+    -------------
+    word_vect : array
+        contains word embeddings for documents.
+    '''
+    word_vect = np.array([word_to_vec_map[t] for t in tokens if t in words])
+    try:
+        word_vect = word_vect.mean(axis=0).astype("float64")
+    except:
+        print("I can't convert tokens into vector.")
+        
+    return word_vect
+```
+    #Apply get_vector function
+    quora_questions['vector'] = quora_questions.tokens.apply(get_vector)
+
+
 ## Go further
 
-- Use Spacy library
-- Implement Deep Learning model to detect fraudulent transactions
+- Use spaCy library for Text processing
+- Use Word2vec Library for WordEmbedding
+- Implement Deep Learning model to detect toxic questions
 
 
 ## Authors

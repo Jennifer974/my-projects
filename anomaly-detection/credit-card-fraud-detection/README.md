@@ -923,6 +923,9 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 
 * Python
 * Data Visualization
+    - Matplotlib
+    - Seaborn
 * Exploration Data Analysis
+    - Pandas
 * Machine Learning : Anomaly Detection 
     - Scikit-Learn
