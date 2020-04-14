@@ -60,10 +60,12 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 ## Acknowledgments
 
 * Python
-* Data Visualization
+* Data Visualization :
+    - Matplotlib
+    - Seaborn
 * Exploration Data Analysis
+    - Pandas
 * Data Cleaning
-
 * Audio Treatment :
     - Librosa
 * Natural Language Processing
@@ -72,7 +74,6 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
     - TextBlob
 * Word Embedding :
     - Glove
-
 * Machine Learning :
     - Scikit-Learn
 * Deep Learning :
