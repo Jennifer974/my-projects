@@ -503,10 +503,11 @@ def read_glove_vecs(glove_file):
     #Apply read_glove_vecs function
     words, word_to_vec_map = read_glove_vecs(glove_file)
 
-**400000 words** are in glove dictionary.
+- **400000 words** are in glove dictionary.
 
-**92.0 % of words on corpus are in dictionary**.
-**8.0 % of words are not on corpus are in dictionary**.
+- **92.0 % of words on corpus are in dictionary**.
+- **8.0 % of words are not on corpus are in dictionary**.
+
 ```
 def is_in_vocab(tokens):
     '''
@@ -540,7 +541,7 @@ def is_in_vocab(tokens):
     return in_vocab, out_vocab_ordered
 ```
 
-I computes word embeddings for corpus of questions:
+I compute word embeddings for corpus of questions:
 ```
 def get_vector(tokens):
     '''
