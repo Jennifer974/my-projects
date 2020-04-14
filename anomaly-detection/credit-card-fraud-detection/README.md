@@ -87,7 +87,7 @@ from sklearn.metrics import f1_score, accuracy_score, classification_report
 from sklearn.metrics import roc_curve
 ```
 
-## 1. Exploration Data Exploration
+## 1. Exploration Data Analysis
 
 I load credit card dataset in pandas dataframe :
 ```
@@ -924,5 +924,4 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 * Python
 * Data Visualization
 * Exploration Data Analysis
-* Machine Learning : Anomaly Detection 
-    - Scikit-Learn
+* Machine Learning : Anomaly Detection
