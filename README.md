@@ -14,7 +14,7 @@ Graduated from the ECAM EPMI Engineering School in Information Systems Managemen
 
 I realized several projects in Machine Learning / Deep Learning based on various challenges (Kaggle, University of Oxford...) that you will find here.
 
-I write this Python script [data_scientist_projects.py](https://github.com/Jennifer974/my-projects/blob/master/data_scientist_projects.py) to generat my projects description. 
+I write this Python script [data_scientist_projects.py](https://github.com/Jennifer974/my-projects/blob/master/data_scientist_projects.py) to generate my projects description. 
 
 ```
 python data_scientist_projects.py
