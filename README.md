@@ -13,7 +13,13 @@ Photo by <a href="https://burst.shopify.com/@lightleaksin?utm_campaign=photo_cre
 Graduated from the ECAM EPMI Engineering School in Information Systems Management in 2018, I specialized in Data Science through the VIVADATA Full Stack Data Science bootcamp because I like to give meaning to data and see how they impact reality.
 
 I realized several projects in Machine Learning / Deep Learning based on various challenges (Kaggle, University of Oxford...) that you will find here.
- 
+
+I write this Python script [data_scientist_projects.py](https://github.com/Jennifer974/my-projects/blob/master/data_scientist_projects.py) to generat my projects description. 
+
+```
+python data_scientist_projects.py
+```
+
 
 ### Speech Detection
 
