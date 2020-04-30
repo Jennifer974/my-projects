@@ -71,21 +71,40 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords, wordnet
 from nltk.stem import WordNetLemmatizer
-from textblob import TextBlob
-import operator
+from tensorflow.keras.preprocessing import text, sequence
 
 #Data Preprocessing
 from imblearn.under_sampling import RandomUnderSampler, ClusterCentroids
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import MinMaxScaler
+
+#Sentiment Analysis
+from textblob import TextBlob                                                    
+import operator
+
+#Topic Modelling
+from gensim.models import TfidfModel
+from gensim.corpora import Dictionary
+from gensim.models import LsiModel
+from pprint import pprint
+from gensim.models import LdaModel
+import pyLDAvis
+import pyLDAvis.gensim
 
 #Supervised Machine Learning Model
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 
+#Deep Learning
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import SimpleRNN, Dense, Embedding, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.callbacks import TensorBoard
+
 #Metrics computed for Classification
-from sklearn.metrics import classification_report, f1_score
+from sklearn.metrics import classification_report, f1_score, accuracy_score
 ```
 
 I load Quora questions dataset in a pandas dataframe :
@@ -337,6 +356,7 @@ y_pred_lr_undersampled = lr_undersampled.predict(X_test_undersampled)
 #### 4.1.2 Data oversampled
 
 <img src='results/quora-insincere-questions-lr-over-results.png'>
+
 **Result** : this model is not adapted for detect toxic content because `F1 score = 40.35 %`
 
 ### 4.2 Random Forest
@@ -355,11 +375,13 @@ y_pred_undersampled = rf_undersampled.predict(X_test_undersampled)
 ```
 
 <img src='results/quora-insincere-questions-rf-under-results.png'>
+
 **Result** : this model is not adapted for detect toxic content because `F1 score = 35.34 %`
 
 #### 4.2.2 Data oversampled 
 
 <img src='results/quora-insincere-questions-rf-over-results.png'>
+
 **Result** : this model is not adapted for detect toxic content because `F1 score = 23.60 %`.
 
 ### 4.3 Sentiment Analysis
@@ -596,14 +618,88 @@ X = pd.concat([X, quora_questions.polarity, quora_questions.subjectivity], axis=
 After splitting, scaling and undersampling or oversampling, I have following results :
 
 #### Data undersampled
+
 <img src='results/quora-insincere-questions-lr-scaled-under-results.png'>
+
 **Result :** this model is not adapted for detect toxic content because `F1 score = 31.16%` but `Recall = 82%`
 
 #### Data oversampled
+
 <img src='results/quora-insincere-questions-lr-scaled-over-results.png'>
+
 **Result :** this model is not adapted for detect toxic content because `F1 score = 32.08%` but `Recall = 84%`
 
 #####  Conclusion : Previous models aren't accacceptable. I will use Deep Learning model.
+
+
+## 5 Deep Learning : RNN
+
+Sentences are **sequential information** so **I use Recurent Neural Network (RNN)** for text.
+
+```
+max_features = 10000
+
+#Tokenization
+tokenizer = text.Tokenizer(num_words=max_features)
+tokenizer.fit_on_texts(quora_questions['question_text'])
+tokenized_sentences = tokenizer.texts_to_sequences(quora_questions['question_text'])
+
+#Padding
+maxlen = 53
+
+#Tokens statistic
+lengths = [len(seq) for seq in tokenized_sentences]
+print('min length:', np.min(lengths))
+print('max length:', np.max(lengths))
+print('mean length:', np.mean(lengths))
+print('median length:', np.median(lengths))
+```
+    min length: 2
+    max length: 53
+    mean length: 12.372081320450885
+    median length: 11.0
+    
+```
+#Features definition
+X = sequence.pad_sequences(tokenized_sentences, maxlen=maxlen)
+
+#Labels definition
+y = quora_questions.target
+
+#Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+```
+```
+#RNN Model
+def my_RNN():
+
+    model = Sequential()
+    model.add(Embedding(input_dim=max_features, output_dim=32, input_length=maxlen))
+    model.add(SimpleRNN(units=32, return_sequences=True))
+    model.add(SimpleRNN(units=32, return_sequences=False))
+    model.add(Dense(units=1, activation='sigmoid'))
+
+    return model
+```
+```
+model = my_RNN()
+
+model.compile(optimizer='adam',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+
+# Define now our callbacks
+callbacks = [EarlyStopping(monitor='val_loss', patience=5),
+             TensorBoard(log_dir='./Graph', histogram_freq=0, write_graph=True, write_images=True)]
+
+model.fit(x=X_train, y=y_train, validation_data=(X_test, y_test), epochs=50, batch_size=64, callbacks=callbacks)
+
+#Prediction
+y_pred = model.predict_classes(X_test)
+```
+
+<img src='results/quora-insincere-questions-rnn-results.png'>
+
 
 ## Topic Modelling
 
@@ -636,6 +732,7 @@ pprint(lsi.print_topics())
 ```
 <img src='results/quora-insincere-questions-lsa-results.png'>
 
+
 ### Latent Dirichlet Allocation (LDA)
 
 Latent Dirichlet Allocation (LDA) is, in a way, an improvement of the LSA. LDA is a probabilistic model (based on Bayesian probabilities).
@@ -657,6 +754,7 @@ pyLDAvis.enable_notebook()
 vis = pyLDAvis.gensim.prepare(topic_model=lda, corpus=bow, dictionary=id2word)
 vis
 ```
+
                                                                        
 ## Go further
 
@@ -687,5 +785,10 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
     - TextBlob
 * Word Embedding :
     - Glove
+* Topic Modelling :
+    - Gensim
 * Machine Learning :
     - Scikit-Learn
+* Deep Learning :
+    - Tensorflow
+    - Keras
