@@ -80,6 +80,8 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
     - TextBlob
 * Word Embedding :
     - Glove
+* Topic Modelling :
+    - Gensim
 * Machine Learning :
     - Scikit-Learn
 * Deep Learning :
