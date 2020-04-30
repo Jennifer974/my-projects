@@ -158,6 +158,7 @@ The dataset is highly unbalanced, the **positive class (Quora insincere question
 
 Later, I use **oversampling** or **undersampling** method **to balance my dataset** to build Supervised Machine Learning model.
 
+
 ## 3. Data Preparation
 
 ### 3.1 Text Preprocessing
@@ -330,11 +331,12 @@ lr_undersampled.fit(X_train_undersampled, y_train_undersampled)
 #Model predictions
 y_pred_lr_undersampled = lr_undersampled.predict(X_test_undersampled)
 ```
-
+<img src='results/quora-insincere-questions-lr-under-results.png'>
 **Result** : this model is not adapted for detect toxic content because `F1 score = 33.60 %` but `Recall = 83%`
 
 #### 4.1.2 Data oversampled
 
+<img src='results/quora-insincere-questions-lr-over-results.png'>
 **Result** : this model is not adapted for detect toxic content because `F1 score = 40.35 %`
 
 ### 4.2 Random Forest
@@ -351,10 +353,13 @@ rf_undersampled.fit(X_train_undersampled, y_train_undersampled)
 #Model predictions
 y_pred_undersampled = rf_undersampled.predict(X_test_undersampled)
 ```
+
+<img src='results/quora-insincere-questions-rf-under-results.png'>
 **Result** : this model is not adapted for detect toxic content because `F1 score = 35.34 %`
 
 #### 4.2.2 Data oversampled 
 
+<img src='results/quora-insincere-questions-rf-over-results.png'>
 **Result** : this model is not adapted for detect toxic content because `F1 score = 23.60 %`.
 
 ### 4.3 Sentiment Analysis
@@ -569,6 +574,90 @@ def get_vector(tokens):
     quora_questions['vector'] = quora_questions.tokens.apply(get_vector)
 
 
+### 4.5 Modeling
+
+
+#### Features and labels definition
+```
+#Features and labels definition
+X = quora_questions.vector
+
+y = quora_questions.target
+
+#Split each coordinates
+X = X.apply(lambda x : pd.Series(x))
+
+#Add polarity and subjectivity to X
+X = pd.concat([X, quora_questions.polarity, quora_questions.subjectivity], axis=1)
+```
+
+#### Logistic Regression
+
+After splitting, scaling and undersampling or oversampling, I have following results :
+
+#### Data undersampled
+<img src='results/quora-insincere-questions-lr-scaled-under-results.png'>
+**Result :** this model is not adapted for detect toxic content because `F1 score = 31.16%` but `Recall = 82%`
+
+#### Data oversampled
+<img src='results/quora-insincere-questions-lr-scaled-over-results.png'>
+**Result :** this model is not adapted for detect toxic content because `F1 score = 32.08%` but `Recall = 84%`
+
+#####  Conclusion : Previous models aren't accacceptable. I will use Deep Learning model.
+
+## Topic Modelling
+
+I identify the most recurrent topics in toxic questions. I use `Gensim` library, a Python library for topic modelling, document indexing and similarity retrieval with large corpora.
+
+### Latent Semantic Analysis (LSA)
+
+**Latent Semantic Analysis** analyzes relationships between a set of documents and the terms they contain by producing a set of concepts (= the topics) related to the documents and terms.
+
+```
+#Create a corpus
+corpus = quora_questions.tokens
+
+#Compute the dictionary
+id2word = Dictionary(corpus)
+
+#Create a BOW
+bow = [id2word.doc2bow(line) for line in corpus]  #Convert corpus to BoW format
+
+#Fit a TF-IDF
+tfidf_model = TfidfModel(bow)
+
+#Compute the TF-IDF
+tf_idf_gensim = tfidf_model[bow]
+
+#Compute LSA
+lsi = LsiModel(tf_idf_gensim, id2word=id2word, num_topics=5)
+
+pprint(lsi.print_topics())
+```
+<img src='results/quora-insincere-questions-lsa-results.png'>
+
+### Latent Dirichlet Allocation (LDA)
+
+Latent Dirichlet Allocation (LDA) is, in a way, an improvement of the LSA. LDA is a probabilistic model (based on Bayesian probabilities).
+
+```
+#Compute the LDA
+lda = LdaModel(corpus=tf_idf_gensim, num_topics=5, id2word=id2word, passes=10)
+
+#Print the main topics
+pprint(lda.print_topics())
+```
+<img src='results/quora-insincere-questions-lda-results.png'>
+
+#### LDA visualization
+
+```
+#Visualize the topics
+pyLDAvis.enable_notebook()
+vis = pyLDAvis.gensim.prepare(topic_model=lda, corpus=bow, dictionary=id2word)
+vis
+```
+                                                                       
 ## Go further
 
 - Use spaCy library for Text processing
