@@ -778,6 +778,11 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 ## Acknowledgments
 
 * Python
+* Data Visualization
+    - Matplotlib
+    - Seaborn
+* Exploration Data Analysis
+    - Pandas
 * Natural Language Processing
     - NLTK
 * Text Processing
