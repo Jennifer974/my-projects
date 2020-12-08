@@ -23,7 +23,8 @@ python data_scientist_projects.py
 ### Deep Learning with PyTorch
 
 In 2020, I participated on **Deep Learning with PyTorch: Zero to GANs** course because to become a good Data Scientist, I have to aware of the technological changement. So, I decided to learn more and do projects with **PyTorch** :
-    - Insurance Cost Predictions
+    - [**Insurance Cost Predictions**](https://github.com/Jennifer974/my-projects/tree/master/insurance-cost-predictions)
+    *Source* : Kaggle Challenge : [Medical Cost Personal Datasets](https://www.kaggle.com/mirichoi0218/insurance)
     
 
 ### Speech Detection
