@@ -20,6 +20,11 @@ I write this Python script [data_scientist_projects.py](https://github.com/Jenni
 python data_scientist_projects.py
 ```
 
+### Deep Learning with PyTorch
+
+In 2020, I participated on **Deep Learning with PyTorch: Zero to GANs** course because to become a good Data Scientist, I have to aware of the technological changement. So, I decided to learn more and do projects with **PyTorch** :
+    - Insurance Cost Predictions
+    
 
 ### Speech Detection
 
@@ -42,13 +47,11 @@ python data_scientist_projects.py
 *Source : Kaggle Challenge :* [Quora insincere questions](https://www.kaggle.com/c/quora-insincere-questions-classification)
 
 
-
 ### Customer Churn
 
 - 🛰 Telcom Customer Churn : develop focused customer retention programs
 
 *Source : Kaggle Challenge :* [Telco Customer Churn](https://www.kaggle.com/blastchar/telco-customer-churn)
-
 
 
 ## Authors
@@ -59,8 +62,9 @@ For more informations, you can contact me :
 
 LinkedIn : [LinkedIn profile](https://www.linkedin.com/in/jennifer-lenclume-a93728115/?locale=en_US)
 
-Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
+Jovian : [Jovian profile](https://jovian.ai/jennifer974)
 
+Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
 
 
 ## Acknowledgments
@@ -84,6 +88,11 @@ Email : <a href="j.lenclume@epmistes.net">j.lenclume@epmistes.net</a>
     - Gensim
 * Machine Learning :
     - Scikit-Learn
+    - PyTorch
 * Deep Learning :
     - Tensorflow
     - Keras
+    - PyTorch
+* GPU :
+    - Google Colab
+    - Jovian
